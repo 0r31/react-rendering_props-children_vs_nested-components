@@ -1,23 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+
+function Title1() {
+  return <h1>Clock1</h1>;
+}
+
+function Clock1(props) {
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    let timerID = setInterval(
+      () => setDate(new Date()),
+      1000
+    );
+    return () => {
+      clearInterval(timerID);
+    }
+  }, [])
+
+  return (
+    <div>
+      <Title1/>
+      <h2>Il est {date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+
+function Title2() {
+  return <h1>Clock2</h1>;
+}
+
+function Clock2(props) {
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    let timerID = setInterval(
+      () => setDate(new Date()),
+      1000
+    );
+    return () => {
+      clearInterval(timerID);
+    }
+  }, [])
+
+  return (
+    <div>
+      {props.children}
+      <h2>Il est {date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Clock1/>
+      <hr/>
+      <Clock2>
+        <Title2/>
+      </Clock2>
     </div>
   );
 }
